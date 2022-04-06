@@ -1,18 +1,40 @@
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Beer
 from api.utils import generate_sitemap, APIException
+from werkzeug.security import generate_password_hash, check_password_hash
 
 api = Blueprint('api', __name__)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
+@api.route('/user', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    all_users = list(map(lambda x: x.serialize(), users))
+    return jsonify(all_users), 200
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
+@api.route('/user/<int:id>', methods=['GET'])
+def get_one_user(id):
+    user_x = User.query.get(id)
+    if user_x is None:
+        return 'User not found', 404
+    else:
+        return jsonify(user_x.serialize()), 200
 
-    return jsonify(response_body), 200
+@api.route('/user', methods=['POST'])
+def create_user():
+
+    name, last_name, email, password = request.json.get(
+        "name", None
+    ), request.json.get (
+        "last_name", None
+    ), request.json.get (
+        "email", None
+    ), request.json.get (
+        "password", None
+    )
+
+    passwordHashed = generate_password_hash(password)
+    new_user = User(name = name, last_name = last_name, email = email, password = passwordHashed )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify(new_user.serialize()), 201

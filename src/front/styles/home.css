@@ -1,7 +1,68 @@
-/*
-    home.css: This website contains selectors only used in home.css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+body {
+  background: #0b0b12;
+  font-family: "Bebas Neue", cursive;
+ 
+}
+
+.bg-my-dark {
+  background: #0b0b12;
+}
+
+.bg-my-orange {
+  background: #d84703;
+}
+
+.bg-my-gold {
+  background: #a7690f;
+}
+
+.bg-my-brown {
+  background: rgb(40, 27, 19);
+}
+
+.bg-my-beige {
+  background: #bd8247;
+}
+
+.font-my-dark {
+  color: rgb(11, 11, 18);
+}
+
+.font-my-orange {
+  color: #d84703;
+}
+
+.font-my-gold {
+  color: #a7690f;
+}
+
+.font-my-brown {
+  color: #281b13;
+}
+
+.font-my-beige {
+  color: #bd8247;
+}
+
+.border-my-orange{
+border-color: #d84703;
+}
+
+.border-my-gold{
+border-color: #a7690f;
+}
+
+.border-my-brown{
+border-color: #281b13;
+border: solid 2px #281b13;
+}
+
+.border-my-beige{
+border-color: #bd8247;
+}
