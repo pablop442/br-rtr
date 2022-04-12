@@ -6,7 +6,7 @@ import { Context } from "../store/appContext";
 
 const AllReviews = () => {
   const { store, actions } = useContext(Context);
-
+// Agregar buscador de cervezas. 
   return (
     <div className="container">
       <div className="row">

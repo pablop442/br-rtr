@@ -14,6 +14,7 @@ const MemberZone = () => {
     borderRadius: "10px",
     boxShadow: "0 0 8px 8px #0b0b12 inset",
   };
+  const token = sessionStorage.getItem("jwt-token");
 
   return (
     <>

@@ -1,12 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import BeerBackground from "../../img/BeerBackground.jpeg";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Home = () => {
   const { store, actions } = useContext(Context);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [last_name, setLast_Name] = useState("");
+  const [newUserMail, setNewUserMail] = useState("");
+  const [newUserPassword, setNewUserPassword] = useState("");
+  const history = useHistory();
+  const token = sessionStorage.getItem("jwt-token");
+
+  const handleSignIn = (e) => {
+    actions.signIn(email, password);
+    setEmail("");
+    setPassword("");
+  };
+  const createUser = (e) => {
+    actions.createNewUser(name, last_name, newUserMail, newUserPassword);
+    setName("");
+    setNewUserMail("");
+    setLast_Name("");
+    setNewUserPassword("");
+    alert("Welcome to the club! Please sign in.");
+  };
   let bgImg = {
     background: `linear-gradient(0deg, rgba(40, 27, 19, 0.9), rgba(11, 11, 18, 0.9)), url(${BeerBackground})`,
     backgroundPosition: `center`,
@@ -16,9 +38,12 @@ const Home = () => {
     boxShadow: "0 0 8px 8px #0b0b12 inset",
   };
 
+  if (token && token != "" && token != undefined) {
+    history.push("/members");
+  }
+
   return (
     <>
-      {" "}
       <div className="container text-center mt-5 p-5" style={bgImg}>
         <div className="row mt-4">
           <div className="col-4 ">
@@ -30,7 +55,9 @@ const Home = () => {
                   id="inputName"
                   className="form-control"
                   aria-describedby="nameInput"
-                  placeholder="Name "
+                  placeholder="Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="col-6">
@@ -41,6 +68,8 @@ const Home = () => {
                   className="form-control"
                   aria-describedby="lastnameInput"
                   placeholder="Lastname"
+                  value={last_name}
+                  onChange={(e) => setLast_Name(e.target.value)}
                 />
               </div>
             </div>
@@ -52,7 +81,9 @@ const Home = () => {
                   id="inputUser"
                   className="form-control mt-4"
                   aria-describedby="emailInput"
-                  placeholder="User"
+                  placeholder="Email"
+                  value={newUserMail}
+                  onChange={(e) => setNewUserMail(e.target.value)}
                 />
               </div>
               <div className="col-6">
@@ -62,14 +93,18 @@ const Home = () => {
                   className="form-control mt-4"
                   aria-describedby="passwordHelpBlock"
                   placeholder="Password"
+                  value={newUserPassword}
+                  onChange={(e) => setNewUserPassword(e.target.value)}
                 />
               </div>
             </div>
-            <Link to="/members">
-              <button className="btn bg-my-orange font-my-dark mt-4">
-                Join
-              </button>
-            </Link>
+
+            <button
+              className="btn bg-my-orange font-my-dark mt-4"
+              onClick={createUser}
+            >
+              Join
+            </button>
           </div>
           <div className="col-4 "></div>
           <div className="col-4 ">
@@ -79,7 +114,9 @@ const Home = () => {
               id="inputUser"
               className="form-control"
               aria-describedby="emailInput"
-              placeholder="User"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <input
@@ -88,12 +125,16 @@ const Home = () => {
               className="form-control mt-4"
               aria-describedby="passwordHelpBlock"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <Link to="/allreviews">
-              <button className="btn bg-my-orange font-my-dark mt-4">
-                Enter
-              </button>
-            </Link>
+
+            <button
+              className="btn bg-my-orange font-my-dark mt-4"
+              onClick={handleSignIn}
+            >
+              Enter
+            </button>
           </div>
         </div>
       </div>

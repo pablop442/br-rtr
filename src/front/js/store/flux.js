@@ -1,49 +1,132 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
-		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
+  return {
+    store: {
+      message: null,
+      demo: [
+        {
+          title: "FIRST",
+          background: "white",
+          initial: "white",
+        },
+        {
+          title: "SECOND",
+          background: "white",
+          initial: "white",
+        },
+      ],
+    },
+    actions: {
+      signIn: async (email, password) => {
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/token",
+            opts
+          );
+          if (resp.status !== 200) {
+            alert("Bad email or password");
+            return false;
+          }
+          const data = await resp.json();
+          console.log("this came from backend", data);
+          sessionStorage.setItem("jwt-token", data.token);
+          setStore({
+            token: data.token,
+            name: data.user.name,
+          });
+          return true;
+        } catch (error) {
+          console.error("There has been an error", error);
+        }
+      },
+      createNewUser: async (name, last_name, email, password) => {
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            last_name: last_name,
+            email: email,
+            password: password,
+          }),
+          mode: "cors",
+        };
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/user", opts);
+          const data = await resp.json();
+          console.log("this came from backend", data);
+        } catch (error) {
+          console.error("There has been an error", error);
+        }
+      },
+      logout: () => {
+        sessionStorage.removeItem("jwt-token");
+        setStore({
+          token: null,
+          name: null,
+          last_name: null,
+          email: null,
+          password: null,
+        });
+      },
 
-			getMessage: () => {
-				// fetching data from the backend
-				fetch(process.env.BACKEND_URL + "/api/hello")
-					.then(resp => resp.json())
-					.then(data => setStore({ message: data.message }))
-					.catch(error => console.log("Error loading message from backend", error));
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+      submitReview: async (name, location, date, description, rate) => {
+        const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
-		}
-	};
+        const opts = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+          body: JSON.stringify({
+            name: name,
+            location: location,
+            date: date,
+            description: description,
+            rate: rate,
+          }),
+          mode: "cors",
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/beers",
+            opts
+          );
+          if (resp.status !== 201) {
+            alert("Something went wrong");
+            return false;
+          }
+          const data = await resp.json();
+          console.log("this came from backend", data);
+          setStore({
+            name: data.name,
+            location: data.location,
+            date: data.date,
+            description: data.description,
+            rate: data.rate,
+          });
+          return true;
+        } catch (error) {
+          console.error("There has been an error", error);
+        }
+      },
+    },
+  };
 };
 
 export default getState;
