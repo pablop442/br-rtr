@@ -6,34 +6,34 @@ import { Context } from "../store/appContext";
 
 const AllReviews = () => {
   const { store, actions } = useContext(Context);
-// Agregar buscador de cervezas. 
+  const data = store.data;
+
+  useEffect(() => {
+    actions.getAllBeers();
+  }, []);
+
+  const numberOfDays = (reviewDate) => {
+    const today = new Date().getDate();
+    const userDate = new Date(reviewDate);
+    const oneDay = 1000 * 60 * 60 * 24;
+    const diffTime = today - userDate.getDate();
+    const diffDays = Math.round(diffTime / oneDay);
+    return diffDays;
+  };
+
+  // Agregar buscador de cervezas.
   return (
     <div className="container">
       <div className="row">
-        <BeerCard
-          userName="Pablo442"
-          beerName="Turia"
-          description="Exellent beer"
-          rate="5/5"
-          location="Location"
-          date="2"
-        />
-        <BeerCard
-          userName="Pablo442"
-          beerName="Turia"
-          description="Exellent beer"
-          rate="5/5"
-          location="Location"
-          date="2"
-        />
-        <BeerCard
-          userName="Pablo442"
-          beerName="Turia"
-          description="Exellent beer"
-          rate="5/5"
-          location="Location"
-          date="2"
-        />
+        {data.map((beer) => (
+          <BeerCard
+            beerName={beer.name}
+            description={beer.description}
+            rate={beer.rate}
+            location={beer.location}
+            date={numberOfDays(beer.date)}
+          />
+        ))}
       </div>
     </div>
   );
