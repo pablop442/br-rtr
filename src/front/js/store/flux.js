@@ -151,6 +151,38 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There was an error ", error);
         }
       },
+      getUserBeer: () => {
+        const store = getStore();
+        const opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + store.token,
+          },
+        };
+        fetch(process.env.BACKEND_URL + "/api/beer-of-user", opts)
+          .then((resp) => resp.json())
+          .then((data) => {
+            const beersArr = data.map((beer) => {
+              return {
+                name: beer.name,
+                location: beer.location,
+                date: beer.date,
+                description: beer.description,
+                rate: beer.rate,
+                reviewer_id: beer.reviewer_id,
+              };
+            });
+            console.log(beersArr);
+            setStore({
+              ...store,
+              beersArr: beersArr,
+            });
+          })
+          .catch((error) =>
+            console.log("Error loading message from backend", error)
+          );
+      },
     },
   };
 };

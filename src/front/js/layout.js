@@ -7,6 +7,7 @@ import MemberZone from "./pages/memberZone";
 import OneReview from "./pages/oneReview";
 import injectContext from "./store/appContext";
 import Navbar from "./component/navbar";
+import MyReviews from "./pages/myReviews";
 
 const Layout = () => {
   const basename = process.env.BASENAME || "";
@@ -28,6 +29,9 @@ const Layout = () => {
             </Route>
             <Route exact path="/makereview">
               <OneReview />
+            </Route>
+            <Route exact path="/myreviews">
+              <MyReviews />
             </Route>
             <Route>
               <h1>Not found!</h1>

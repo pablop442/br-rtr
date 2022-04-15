@@ -99,10 +99,10 @@ def delete_beer(id):
         return jsonify("Beer deleted"), 200
 
 @api.route('/beer-of-user', methods=['GET'])
-# @jwt_required()
+@jwt_required()
 def get_user_beer():
-    # user_id = get_jwt_identity()
-    # print('user token', user_id)
+    user_id = get_jwt_identity()
+    print('user token', user_id)
     list_beer = db.session.query(Beer).filter(Beer.reviewer_id == user_id)
     # if len(list_beer) == 0:
     #     return jsonify([]), 200

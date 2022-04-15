@@ -39,6 +39,13 @@ const MemberZone = () => {
               </button>
             </Link>
           </div>
+          <div className="col-2 ">
+            <Link to="/myreviews">
+              <button className="btn bg-my-orange font-my-dark mt-4">
+                My Reviews
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </>

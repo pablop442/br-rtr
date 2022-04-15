@@ -48,4 +48,5 @@ class Beer(db.Model):
             "date": self.date,
             "rate": self.rate,
             "description": self.description,
+            "reviewer_id": self.reviewer_id,
         }

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useHistory } from "react-router-dom";
 import BeerCard from "../component/beerCard";
+import { numberOfDays } from "./allReviews";
+import BeerBackground from "../../img/BeerBackground.jpeg";
 
 const OneReview = (props) => {
   const { store, actions } = useContext(Context);
@@ -18,6 +20,15 @@ const OneReview = (props) => {
     height: "100px",
   };
 
+  let bgImg = {
+    background: `linear-gradient(0deg, rgba(40, 27, 19, 0.9), rgba(11, 11, 18, 0.9)), url(${BeerBackground})`,
+    backgroundPosition: `center`,
+    backgroundSize: "cover",
+    height: "max",
+    borderRadius: "10px",
+    boxShadow: "0 0 8px 8px #0b0b12 inset",
+  };
+
   const submitReview = (e) => {
     e.preventDefault();
     actions.submitReview(name, location, date, description, rate);
@@ -26,7 +37,7 @@ const OneReview = (props) => {
     setDescription("");
     setRate("");
     setLocation("");
-    history.push("/members");
+    history.push("/myreviews");
   };
   return (
     <>
@@ -130,7 +141,7 @@ const OneReview = (props) => {
                     Nah. Too many beers to waste my time.
                   </label>
                 </div>
-              </div>{" "}
+              </div>
             </div>
 
             <div className="form-floating">
@@ -144,6 +155,15 @@ const OneReview = (props) => {
               ></textarea>
               <label htmlFor="floatingTextarea">Describe your beer</label>
             </div>
+            <button
+              className="btn bg-my-orange font-my-dark mt-4 "
+              onClick={submitReview}
+            >
+              Submit
+            </button>
+          </div>
+          {/* <div className="col-4" style={bgImg}>
+            {" "}
             <div className="mt-4 d-flex justify-content-center">
               <BeerCard
                 userName={store.name}
@@ -151,17 +171,10 @@ const OneReview = (props) => {
                 description={description}
                 rate={rate}
                 location={location}
-                date={date}
+                date={numberOfDays(date)}
               />
             </div>
-
-            <button
-              className="btn bg-my-orange font-my-dark mt-4"
-              onClick={submitReview}
-            >
-              Submit
-            </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

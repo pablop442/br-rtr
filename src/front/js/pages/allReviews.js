@@ -4,6 +4,18 @@ import BeerCard from "../component/beerCard";
 
 import { Context } from "../store/appContext";
 
+export const numberOfDays = (reviewDate) => {
+  const today = new Date().getDate();
+  const userDate = new Date(reviewDate);
+  const diffDate = today - userDate.getDate();
+  if (reviewDate) {
+    const roundDate = Math.round(diffDate);
+    return roundDate;
+  } else {
+    return "";
+  }
+};
+
 const AllReviews = () => {
   const { store, actions } = useContext(Context);
   const data = store.data;
@@ -12,21 +24,13 @@ const AllReviews = () => {
     actions.getAllBeers();
   }, []);
 
-  const numberOfDays = (reviewDate) => {
-    const today = new Date().getDate();
-    const userDate = new Date(reviewDate);
-    const oneDay = 1000 * 60 * 60 * 24;
-    const diffTime = today - userDate.getDate();
-    const diffDays = Math.round(diffTime / oneDay);
-    return diffDays;
-  };
-
   // Agregar buscador de cervezas.
   return (
     <div className="container">
       <div className="row">
-        {data.map((beer) => (
+        {data?.map((beer) => (
           <BeerCard
+            key={beer.id}
             beerName={beer.name}
             description={beer.description}
             rate={beer.rate}
