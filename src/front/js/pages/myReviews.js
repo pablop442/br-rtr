@@ -34,14 +34,13 @@ const MyReviews = () => {
                 <BeerCard
                   key={i}
                   userName={beer.reviewer_id}
-                  beerName={beer.name}
+                  beerName={beer.beerName}
                   description={beer.description}
                   rate={beer.rate}
                   location={beer.location}
                   date={numberOfDays(beer.date)}
                 />
               ))}
-<p className="font-my-orange">HOLA</p>
             </div>
           </div>
         </div>

@@ -114,7 +114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await resp.json();
           console.log("this came from backend", data);
           setStore({
-            name: data.name,
+            beerName: data.name,
             location: data.location,
             date: data.date,
             description: data.description,
@@ -182,6 +182,34 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) =>
             console.log("Error loading message from backend", error)
           );
+      },
+      getUserData: async (id) => {
+        const store = getStore();
+        const opts = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/user/" + id,
+            opts
+          );
+          if (resp.status !== 200) {
+            alert("Something went wrong");
+            return false;
+          }
+          const data = await resp.json();
+          console.log(data);
+          setStore({
+            ...store,
+            name: data.name,
+          });
+          return true;
+        } catch (error) {
+          console.error("There was an error ", error);
+        }
       },
     },
   };

@@ -24,6 +24,10 @@ const AllReviews = () => {
     actions.getAllBeers();
   }, []);
 
+  //  useEffect(() => {
+  //     actions.getUserData(data.reviewer_id);
+  //   }, []);
+
   // Agregar buscador de cervezas.
   return (
     <div className="container">
@@ -31,7 +35,8 @@ const AllReviews = () => {
         {data?.map((beer) => (
           <BeerCard
             key={beer.id}
-            beerName={beer.name}
+            userName={beer.id}
+            beerName={beer.beerName}
             description={beer.description}
             rate={beer.rate}
             location={beer.location}

@@ -75,7 +75,8 @@ def create_beer():
         "description", None
     )
     
-    new_beer = Beer(name= name, location= location, date= date, rate= rate, description= description)
+    new_beer = Beer(name= name, location= location, date= date, rate= rate, description= description, reviewer_id= user_id)
+
     db.session.add(new_beer)
     db.session.commit()
     return jsonify(new_beer.serialize()), 201
