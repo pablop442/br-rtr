@@ -31,7 +31,7 @@ body {
 }
 
 .font-my-dark {
-  color: rgb(11, 11, 18);
+  color: #0b0b12;
 }
 
 .font-my-orange {
@@ -48,6 +48,10 @@ body {
 
 .font-my-beige {
   color: #bd8247;
+}
+
+.font-my-grey{
+color: #413f3f9c;
 }
 
 .border-my-orange{
@@ -67,3 +71,12 @@ border: solid 2px #281b13;
 border-color: #bd8247;
 }
 
+.bg-beer-effect{
+background: #ECECEC;
+background: -moz-linear-gradient(top, #ECECEC 0%, #BD8247 38%, #A7690F 100%);
+background: -webkit-linear-gradient(top, #ECECEC 0%, #BD8247 38%, #A7690F 100%);
+background: linear-gradient(to bottom, #ECECEC 0%, #BD8247 38%, #A7690F 100%);
+-webkit-box-shadow: 0px 11px 10px 3px rgba(0,0,0,0.93); 
+box-shadow: 0px 11px 10px 3px rgba(0,0,0,0.93);
+border:none;
+}

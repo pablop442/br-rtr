@@ -36,7 +36,7 @@ const AllReviews = () => {
           <BeerCard
             key={beer.id}
             userName={beer.id}
-            beerName={beer.beerName}
+            beerName={beer.name}
             description={beer.description}
             rate={beer.rate}
             location={beer.location}
