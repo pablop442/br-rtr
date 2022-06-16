@@ -5,6 +5,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import os
 
 
 api = Blueprint('api', __name__)
@@ -75,6 +79,22 @@ def create_beer():
         "description", None
     )
     
+    # cloudinary.config(
+    #     cloud_name = os.getenv('CLOUD_NAME'), 
+    #     api_key =  os.getenv('API_KEY'), 
+    #     api_secret =  os.getenv('API_SECRET'),
+      
+    # )
+
+    # file_to_upload = request.files.get('location')
+    # beer_img= ""
+    # if file_to_upload:
+    #     upload_result = cloudinary.uploader.upload(file_to_upload)
+    #     print(upload_result)
+    #     if upload_result:
+    #         beer_img = upload_result.get('secure_url')
+            
+    
     new_beer = Beer(name= name, location= location, date= date, rate= rate, description= description, reviewer_id= user_id)
 
     db.session.add(new_beer)
@@ -127,3 +147,7 @@ def create_token():
         return jsonify({"token": access_token, "user": user_json })
     else:
         return jsonify({"msg": "Bad email or password"}), 401
+
+# @api.route('/upload-image', methods=['POST'])
+# def upload_img():
+    

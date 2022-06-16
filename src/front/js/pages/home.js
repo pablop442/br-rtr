@@ -4,6 +4,7 @@ import "../../styles/home.css";
 import BeerBackground from "../../img/BeerBackground.jpeg";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import Navbar from "../component/navbar";
 
 const Home = () => {
   const { store, actions } = useContext(Context);
@@ -30,12 +31,12 @@ const Home = () => {
     alert("Welcome to the club! Please sign in.");
   };
   let bgImg = {
-    background: `linear-gradient(0deg, rgba(40, 27, 19, 0.9), rgba(11, 11, 18, 0.9)), url(${BeerBackground})`,
+    background: `linear-gradient(0deg, rgba(40, 27, 19, 0.5), rgba(11, 11, 18, 0.9)), url(${BeerBackground})`,
     backgroundPosition: `center`,
     backgroundSize: "cover",
-    height: "max-content",
-    borderRadius: "10px",
-    boxShadow: "0 0 8px 8px #0b0b12 inset",
+    height: "100%",
+  
+    // boxShadow: "0 0 8px 8px #0b0b12 inset",
   };
 
   if (token && token != "" && token != undefined) {
@@ -44,97 +45,17 @@ const Home = () => {
 
   return (
     <>
-      <div className="container text-center mt-5 p-5" style={bgImg}>
-        <div className="row mt-4">
-          <div className="col-4 ">
-            <h1 className="font-my-gold ">Join The Club</h1>
-            <div className="row">
-              <div className="col-6">
-                <input
-                  type="text"
-                  id="inputName"
-                  className="form-control"
-                  aria-describedby="nameInput"
-                  placeholder="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="col-6">
-                {" "}
-                <input
-                  type="text"
-                  id="inputLastname"
-                  className="form-control"
-                  aria-describedby="lastnameInput"
-                  placeholder="Lastname"
-                  value={last_name}
-                  onChange={(e) => setLast_Name(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-6">
-                <input
-                  type="email"
-                  id="inputUser"
-                  className="form-control mt-4"
-                  aria-describedby="emailInput"
-                  placeholder="Email"
-                  value={newUserMail}
-                  onChange={(e) => setNewUserMail(e.target.value)}
-                />
-              </div>
-              <div className="col-6">
-                <input
-                  type="password"
-                  id="inputPassword5"
-                  className="form-control mt-4"
-                  aria-describedby="passwordHelpBlock"
-                  placeholder="Password"
-                  value={newUserPassword}
-                  onChange={(e) => setNewUserPassword(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <button
-              className="btn bg-my-orange font-my-dark mt-4"
-              onClick={createUser}
-            >
-              Join
-            </button>
-          </div>
-          <div className="col-4 "></div>
-          <div className="col-4 ">
-            <h1 className="font-my-gold">Members Zone</h1>
-            <input
-              type="email"
-              id="inputUser"
-              className="form-control"
-              aria-describedby="emailInput"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <input
-              type="password"
-              id="inputPassword5"
-              className="form-control mt-4"
-              aria-describedby="passwordHelpBlock"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <button
-              className="btn bg-my-orange font-my-dark mt-4"
-              onClick={handleSignIn}
-            >
-              Enter
-            </button>
+      <div className="container-fluid text-center p-5" style={bgImg}>
+       <Navbar />
+        <div className="row mt-4 d-flex justify-content-center">
+          <div className="col-12 col-sm-10 position-absolute top-50 start-50 translate-middle">
+<h1 className="font-my-white homepage-text">“A fine beer may be judged with only one sip, but it’s better to be thoroughly sure.” –<i>Czech Proverb</i> </h1>
+            <Link to="/register">
+              <button type="button" class="btn btn-outline-light m-3 btn-lg fs-4 primary-btn px-5">
+                Register
+              </button>
+            </Link>
+         
           </div>
         </div>
       </div>

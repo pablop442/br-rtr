@@ -6,18 +6,27 @@ import { useHistory } from "react-router-dom";
 import BeerCard from "../component/beerCard";
 import { numberOfDays } from "./allReviews";
 import BeerBackground from "../../img/BeerBackground.jpeg";
+import Navbar from "../component/navbar";
+import { ImCool2, ImSmile2, ImNeutral2, ImSad2 } from "react-icons/im";
 
 const OneReview = (props) => {
   const { store, actions } = useContext(Context);
   const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [rate, setRate] = useState("");
   const history = useHistory();
+  const [selectedImage, setSelectedImage] = useState("");
+  const [realFileText, setRealFileText] = useState("");
 
   let textAreaStyle = {
     height: "100px",
+  };
+
+  const iconStyle = {
+    fontSize: "2em",
+    color: "#dbe120",
+    margin: "0 5px 5px 0",
   };
 
   let bgImg = {
@@ -29,21 +38,28 @@ const OneReview = (props) => {
     boxShadow: "0 0 8px 8px #0b0b12 inset",
   };
 
+  const uploadImage = (selectedImage) => {
+    actions.uploadImage(selectedImage);
+  };
+  const result = store.data;
+
   const submitReview = (e) => {
     e.preventDefault();
-    actions.submitReview(name, location, date, description, rate);
+    actions.submitReview(name, result, date, description, rate);
     setName("");
     setDate("");
     setDescription("");
     setRate("");
-    setLocation("");
     history.push("/myreviews");
   };
+
   return (
     <>
-      <div className="container">
-        <div className="row font-my-beige d-flex justify-content-center">
-          <div className="col-6 text-center">
+      <div className="container-fluid text-center p-5">
+        <Navbar />
+        <div className="row font-my-white d-flex justify-content-center mt-3">
+          <div className="col-sm-6 col-12 text-center">
+            <h1 className="font-my-white mb-3">Review your beer!</h1>
             <div className="form-floating mb-3 ">
               <input
                 type="text"
@@ -53,9 +69,9 @@ const OneReview = (props) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <label for="floatingInput">Beer Name</label>
+              <label htmlFor="floatingInput">Beer Name</label>
             </div>
-            <div className="form-floating">
+            <div className="form-floating mb-3">
               <input
                 type="date"
                 className="form-control bg-my-dark border-my-gold"
@@ -64,10 +80,40 @@ const OneReview = (props) => {
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
               />
-              <label for="floatingPassword">Date</label>
+              <label htmlFor="floatingPassword">Date</label>
             </div>
-            <div className="row d-flex justify-content-center my-3">
-              <div className="col-6">
+            <div className="form-control bg-my-dark border-my-gold">
+              <button
+                className="btn btn-outline-light m-2 primary-btn px-4"
+                onClick={(e) => document.getElementById("realFile").click()}
+              >
+                Choose Image
+              </button>
+              <span id="custom-text" className="font-my-white ms-3">
+                {realFileText ? realFileText : "No image chosen"}
+              </span>
+              <input
+                type="file"
+                name="file"
+                className="bg-my-dark border-my-gold"
+                id="realFile"
+                placeholder="Upload an image of your beer"
+                onChange={(e) => {
+                  setSelectedImage(e.target.files[0]);
+                  setRealFileText(e.target.files[0].name);
+                }}
+              />
+
+              <button
+                onClick={(e) => uploadImage(selectedImage)}
+                className="btn btn-outline-light m-2 primary-btn px-4"
+              >
+                Upload Now
+              </button>
+            </div>
+            <img src={result} />{" "}
+            <div className="row d-flex justify-content-center my-3 text-start">
+              <div className="col-12">
                 <div className="form-check">
                   <input
                     className="form-check-input"
@@ -76,7 +122,7 @@ const OneReview = (props) => {
                     id="flexRadioDefault1"
                     data-mdb-toggle="rating"
                     checked={
-                      rate === "Definitely I'll buy a whole case next time."
+                      rate === `Definitely I'll buy a whole case next time. `
                     }
                     value="Definitely I'll buy a whole case next time."
                     onChange={(e) => setRate(e.target.value)}
@@ -85,6 +131,13 @@ const OneReview = (props) => {
                     className="form-check-label"
                     htmlFor="flexRadioDefault1"
                   >
+                    <ImCool2
+                      style={{
+                        fontSize: "2em",
+                        color: "#2C9B03",
+                        margin: "0 5px 5px 0",
+                      }}
+                    />{" "}
                     Definitely I'll buy a whole case next time.
                   </label>
                 </div>
@@ -103,6 +156,13 @@ const OneReview = (props) => {
                     className="form-check-label"
                     htmlFor="flexRadioDefault2"
                   >
+                    <ImSmile2
+                      style={{
+                        fontSize: "2em",
+                        color: "#FCD200",
+                        margin: "0 5px 5px 0",
+                      }}
+                    />{" "}
                     I could buy a couple more again.
                   </label>
                 </div>
@@ -120,6 +180,13 @@ const OneReview = (props) => {
                     className="form-check-label"
                     htmlFor="flexRadioDefault3"
                   >
+                    <ImNeutral2
+                      style={{
+                        fontSize: "2em",
+                        color: "#FC5000",
+                        margin: "0 5px 5px 0",
+                      }}
+                    />{" "}
                     It's OK.
                   </label>
                 </div>
@@ -138,12 +205,18 @@ const OneReview = (props) => {
                     className="form-check-label"
                     htmlFor="flexRadioDefault4"
                   >
+                    <ImSad2
+                      style={{
+                        fontSize: "2em",
+                        color: "#FC0000",
+                        margin: "0 5px 5px 0",
+                      }}
+                    />{" "}
                     Nah. Too many beers to waste my time.
                   </label>
                 </div>
               </div>
             </div>
-
             <div className="form-floating">
               <textarea
                 className="form-control bg-my-dark border-my-gold"
@@ -156,7 +229,7 @@ const OneReview = (props) => {
               <label htmlFor="floatingTextarea">Describe your beer</label>
             </div>
             <button
-              className="btn bg-my-orange font-my-dark mt-4 "
+              className="btn btn-outline-light m-2 primary-btn px-4 mt-4 "
               onClick={submitReview}
             >
               Submit

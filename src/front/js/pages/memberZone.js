@@ -3,48 +3,81 @@ import { Link } from "react-router-dom";
 import BeerCard from "../component/beerCard";
 import BeerBackground from "../../img/BeerBackground.jpeg";
 import { Context } from "../store/appContext";
+import {
+  IoLibraryOutline,
+  IoFlashlightOutline,
+  IoBeerOutline,
+} from "react-icons/io5";
+import Navbar from "../component/navbar";
 
 const MemberZone = () => {
   const { store, actions } = useContext(Context);
-  let bgImg = {
-    background: `linear-gradient(0deg, rgba(40, 27, 19, 0.9), rgba(11, 11, 18, 0.9)), url(${BeerBackground})`,
-    backgroundPosition: `center`,
-    backgroundSize: "cover",
-    height: "max-content",
-    borderRadius: "10px",
-    boxShadow: "0 0 8px 8px #0b0b12 inset",
+
+  const iconStyle = {
+    fontSize: "2em",
+    float: "left",
+    color: "#fffff",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
   };
   const token = sessionStorage.getItem("jwt-token");
 
   return (
     <>
-      <div className="container text-center mt-5 p-5" style={bgImg}>
+      <div className="container-fluid text-center p-5">
+        <Navbar />
         <div className="row mt-4 d-flex justify-content-center">
-          <h1 className="font-my-gold">
-            Welcome to 'Wheat and Hop' our own exclusive beer club
+          <h1 className="font-my-white mb-3">
+            Welcome to Beer Club {store.name}
           </h1>
-          <div className="col-2 ">
-            <Link to="/allreviews">
-              {" "}
-              <button className="btn bg-my-orange font-my-dark mt-4">
-                Check All Reviews
-              </button>
-            </Link>
-          </div>
+          <div className="row mt-3">
+            <div className="col-sm-4 col-12 my-2 ">
+              <div className="circle">
+                <IoBeerOutline style={iconStyle} />
+              </div>
+              <h4 className="font-my-white">Make a Review</h4>
+              <p className="font-my-white">
+                What's the last beer you had? Add it to the Club's database
+              </p>
+              <Link to="/makereview">
+                <button className="btn btn-outline-light primary-btn">
+                  GO!
+                </button>
+              </Link>
+              <div className="line mt-3 d-block d-sm-none"></div>
+            </div>
+            <div className="col-sm-4 col-12 my-2">
+              <div className="circle">
+                <IoFlashlightOutline style={iconStyle} />
+              </div>
+              <h4 className="font-my-white">Check All Reviews</h4>
+              <p className="font-my-white">
+                Discover all the beers that the Club's members are drinking
+              </p>
+              <Link to="/allreviews">
+                <button className="btn btn-outline-light primary-btn">
+                  GO!
+                </button>
+              </Link>
+<div className="line mt-3 d-block d-sm-none"></div>
+            </div>
+            <div className="col-sm-4 col-12 my-2">
+              <div className="circle">
+                <IoLibraryOutline style={iconStyle} />
+              </div>
+              <h4 className="font-my-white">My Reviews</h4>
+              <p className="font-my-white">
+                Want to buy again that epic beer you had days ago? Check it out
+              </p>
+              <Link to="/myreviews">
+                <button className="btn btn-outline-light primary-btn">
+                  GO!
+                </button>
+              </Link>
 
-          <div className="col-2 ">
-            <Link to="/makereview">
-              <button className="btn bg-my-orange font-my-dark mt-4">
-                Make a Review
-              </button>
-            </Link>
-          </div>
-          <div className="col-2 ">
-            <Link to="/myreviews">
-              <button className="btn bg-my-orange font-my-dark mt-4">
-                My Reviews
-              </button>
-            </Link>
+            </div>
           </div>
         </div>
       </div>

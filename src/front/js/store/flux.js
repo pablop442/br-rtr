@@ -125,7 +125,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.error("There has been an error", error);
         }
       },
+
       getAllBeers: async () => {
+        const store = getStore();
         const opts = {
           method: "GET",
           headers: {
@@ -144,6 +146,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           const data = await resp.json();
           console.log(data);
           setStore({
+            ...store,
             data: data,
           });
           return true;
@@ -183,6 +186,33 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("Error loading message from backend", error)
           );
       },
+
+      uploadImage: (selectedImage) => {
+        const store = getStore();
+        const formData = new FormData();
+        formData.append("file", selectedImage);
+        formData.append("upload_preset", "h0lqlpyp");
+
+        fetch("https://api.cloudinary.com/v1_1/pablop442/image/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            const data = result;
+            setStore({
+              ...store,
+              data: data.secure_url,
+            });
+            console.log("Success", result);
+          })
+          .catch((error) => {
+            console.error("Error", error);
+          });
+
+        console.log(formData);
+      },
+
       getUserData: async (id) => {
         const store = getStore();
         const opts = {
@@ -204,7 +234,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(data);
           setStore({
             ...store,
-            name: data.name,
+            userName: data.name,
           });
           return true;
         } catch (error) {

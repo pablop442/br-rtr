@@ -6,8 +6,12 @@
 
 body {
   background: #0b0b12;
-  font-family: "Bebas Neue", cursive;
- 
+  font-family: "Kanit", sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: transparent;
 }
 
 .bg-my-dark {
@@ -30,6 +34,14 @@ body {
   background: #bd8247;
 }
 
+.bg-my-yellow {
+  background: #dbe120;
+}
+
+.font-my-yellow {
+  color: #dbe120;
+}
+
 .font-my-dark {
   color: #0b0b12;
 }
@@ -50,33 +62,118 @@ body {
   color: #bd8247;
 }
 
-.font-my-grey{
-color: #413f3f9c;
+.font-my-grey {
+  color: #c0c0c0;
 }
 
-.border-my-orange{
-border-color: #d84703;
+.font-my-white {
+  color: #ffff;
 }
 
-.border-my-gold{
-border-color: #a7690f;
+.homepage-text {
+  font-size: 40px;
 }
 
-.border-my-brown{
-border-color: #281b13;
-border: solid 2px #281b13;
+.navbar-collapse {
+  flex-grow: 0;
 }
 
-.border-my-beige{
-border-color: #bd8247;
+.navbar-toggler:focus {
+  box-shadow: none;
+  border-color: #e6e6e644;
 }
 
-.bg-beer-effect{
-background: #ECECEC;
-background: -moz-linear-gradient(top, #ECECEC 0%, #BD8247 38%, #A7690F 100%);
-background: -webkit-linear-gradient(top, #ECECEC 0%, #BD8247 38%, #A7690F 100%);
-background: linear-gradient(to bottom, #ECECEC 0%, #BD8247 38%, #A7690F 100%);
--webkit-box-shadow: 0px 11px 10px 3px rgba(0,0,0,0.93); 
-box-shadow: 0px 11px 10px 3px rgba(0,0,0,0.93);
-border:none;
+i {
+  font-size: 30px;
+}
+
+.logo-1 {
+  color: #ffff;
+  font-family: "Patua One", cursive;
+  text-decoration: none;
+  font-size: xx-large;
+  display: inline-block;
+}
+
+.primary-btn {
+  border: solid 1px #dbe120;
+  background: #dbe120;
+  color: #0b0b12;
+  border-radius: 70px;
+}
+
+.secondary-btn {
+  border-radius: 70px;
+}
+
+.form-control {
+  border: none !important;
+  border-bottom: 2px solid #ffff !important;
+  border-radius: 0% !important;
+}
+
+.form-control:focus {
+  color: #ffff;
+  background: none;
+  box-shadow: 0 0 0 0.1rem #ffff;
+  border-bottom: 2px solid #ffff;
+  border-radius: 0% !important;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.logo-2 {
+  color: #dbe120;
+  font-family: "Quicksand", sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  font-size: x-large;
+}
+
+.border-my-orange {
+  border-color: rgb(1, 10, 7);
+}
+
+.border-my-gold {
+  border-color: #a7690f;
+}
+
+.border-my-brown {
+  border-color: #281b13;
+  border: solid 2px #281b13;
+}
+
+.border-my-beige {
+  border-color: #bd8247;
+}
+
+.bg-beer-effect {
+  background: none;
+  box-shadow: 0px 11px 10px 3px rgba(0, 0, 0, 0.93);
+  border: solid 1px #dbe120;
+}
+
+.beer-img {
+  width: 100%;
+  height: 100%;
+}
+
+#realFile {
+  display: none;
+}
+
+.circle {
+  height: 75px;
+  width: 75px;
+  border: solid 1px #ffff;
+  border-radius: 50%;
+  display: inline-block;
+  color: #ffff;
+  position: relative;
+}
+
+.line {
+  border-bottom: solid 2px #ffff;
 }

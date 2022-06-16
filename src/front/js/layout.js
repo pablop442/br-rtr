@@ -8,18 +8,26 @@ import OneReview from "./pages/oneReview";
 import injectContext from "./store/appContext";
 import Navbar from "./component/navbar";
 import MyReviews from "./pages/myReviews";
+import Register from "./pages/register";
+import SignIn from "./pages/signIn";
 
 const Layout = () => {
   const basename = process.env.BASENAME || "";
 
   return (
-    <div>
+    <>
       <BrowserRouter basename={basename}>
         <ScrollToTop>
-          <Navbar />
+          {/* <Navbar /> */}
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            <Route exact path="/signin">
+              <SignIn />
             </Route>
             <Route exact path="/allreviews">
               <AllReviews />
@@ -39,7 +47,7 @@ const Layout = () => {
           </Switch>
         </ScrollToTop>
       </BrowserRouter>
-    </div>
+    </>
   );
 };
 

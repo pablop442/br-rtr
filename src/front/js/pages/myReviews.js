@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import BeerCard from "../component/beerCard";
 import { numberOfDays } from "./allReviews";
 import BeerBackground from "../../img/BeerBackground.jpeg";
+import Navbar from "../component/navbar";
 
 const MyReviews = () => {
   const { store, actions } = useContext(Context);
@@ -25,23 +26,24 @@ const MyReviews = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="row font-my-beige d-flex justify-content-center">
-          <div className="col-4" style={bgImg}>
+      <div className="container-fluid text-center p-5">
+ <Navbar />
+        <div className="row mt-4 d-flex justify-content-center">
+          <div className="col-12">
             {" "}
-            <div className="mt-4 d-flex justify-content-center">
+            
               {beersArr?.map((beer, i) => (
                 <BeerCard
                   key={i}
-                  userName={beer.reviewer_id}
-                  beerName={beer.beerName}
+                  userName={beer.reviewer_id} 
+                  beerName={beer.name}
                   description={beer.description}
                   rate={beer.rate}
                   location={beer.location}
                   date={numberOfDays(beer.date)}
                 />
               ))}
-            </div>
+           
           </div>
         </div>
       </div>
